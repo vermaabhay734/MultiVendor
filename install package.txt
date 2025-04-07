@@ -2,3 +2,7 @@ npm install react@18.2.0
 
 For Dashboard
 npm i apexcharts react-apexcharts axios jwt-decode moment react-hot-toast react-icons @reduxjs/toolkit react-redux react-spinners react-window redux-thunk socket.io-client
+
+
+Setup Tailwind CSS
+https://v3.tailwindcss.com/docs/guides/create-react-app
