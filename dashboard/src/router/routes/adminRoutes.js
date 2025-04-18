@@ -1,4 +1,5 @@
 import { lazy } from "react";
+const SellerRequest = lazy(()=> import('../../views/admin/SellerRequest'))
 const DeactiveSellers = lazy(()=> import('../../views/admin/DeactiveSellers'))
 const AdminDashboard = lazy(()=> import('../../views/admin/AdminDashboard'))  
 const Orders = lazy(()=> import('../../views/admin/Orders')) 
@@ -35,6 +36,11 @@ export const adminRoutes = [
     {
         path: 'admin/dashboard/deactive-sellers',
         element : <DeactiveSellers/>,
+        role : 'admin'
+    },
+    {
+        path: 'admin/dashboard/sellers-request',
+        element : <SellerRequest/>,
         role : 'admin'
     }
 ]
