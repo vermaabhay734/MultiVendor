@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoMdImages } from "react-icons/io";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const AddProduct = () => {
     const categorys = [
@@ -53,6 +54,7 @@ const AddProduct = () => {
     const [allCategory, setAllCategory] = useState(categorys)
     const [searchValue, setSearchValue] = useState('')
 
+    // Category Search 
     const categorySearch = (e) => {
         const value = e.target.value
         setSearchValue(value)
@@ -83,6 +85,7 @@ const AddProduct = () => {
     // console.log(images)
     // console.log(imageShow)
 
+    // Image Change Method
     const changeImage = (img, index) => {
         if (img) {
             let tempUrl = imageShow
@@ -93,6 +96,15 @@ const AddProduct = () => {
             setImageShow([...tempUrl])
             setImages([...tempImages])
         }
+    }
+
+    // Image Remove Method
+    const removeImage = (i) => {
+        const filterImage = images.filter((img,index) => index !== i)
+        const filterImageUrl = imageShow.filter((img, index) => index !== i )
+
+        setImages(filterImage)
+        setImageShow(filterImageUrl)
     }
 
 
@@ -170,7 +182,7 @@ const AddProduct = () => {
                             <textarea className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' onChange={inputHandle} value={state.description} name='description' id='description' placeholder='Description' cols="10" rows="4"></textarea> 
                         </div>
                         
-                        {/* For Image section */}
+                        {/* Image section */}
                         <div className='grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 sm:grid-cols-2 sm:gap-4 md:gap-4 gap-3 w-full text-[#d0d2d6] mb-4'>
                             {
                                 imageShow.map((img,i) => <div className='h-[180px] relative'>
@@ -178,6 +190,7 @@ const AddProduct = () => {
                                         <img className='w-full h-full rounded-sm' src={img.url} alt="" />
                                     </label>
                                     <input onChange={(e)=> changeImage(e.target.files[0],i) } type="file" id={i} className='hidden'/>
+                                    <span onClick={()=>removeImage(i)} className='p-2 z-10 cursor-pointer bg-slate-700 hover:shadow-lg hover:shadow-slate-400/50 text-white absolute top-1 right-1 rounded-full'><IoMdCloseCircle /></span>
                                 </div> )
                             }
                             <label className='flex justify-center items-center flex-col h-[180px] cursor-pointer border border-dashed hover:border-red-500 w-full text-[#d0d2d6]' htmlFor="image">
@@ -185,6 +198,11 @@ const AddProduct = () => {
                                 <span>Select Image </span>
                             </label>
                             <input className='hidden' onChange={imageHandle} multiple type="file" id='image' />
+                        </div>
+                        
+                        {/* Button Section */}
+                        <div className='flex'>
+                            <button className='bg-red-500  hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2'>Add Product</button>
                         </div>
 
                     </form>
