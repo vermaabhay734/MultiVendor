@@ -10,6 +10,7 @@ const SellerToAdmin = lazy(()=> import('../../views/seller/SellerToAdmin'))
 const SellerToCustomer = lazy(()=> import('../../views/seller/SellerToCustomer'))
 const Profile = lazy(()=> import('../../views/seller/Profile'))
 const EditProduct = lazy(()=> import('../../views/seller/EditProduct'))
+const OrderDetails = lazy(()=> import('../../views/seller/OrderDetails'))
 
 export const sellerRoutes = [
     {
@@ -52,6 +53,12 @@ export const sellerRoutes = [
         element : <Orders/>,
         role : 'seller',
         status : ['active', 'deactive']
+    },
+    {
+        path: '/seller/dashboard/order/details/:orderId',
+        element : <OrderDetails/>,
+        role : 'seller',
+        ability : ['active','deactive']
     },
     {
         path: '/seller/dashboard/payments',
