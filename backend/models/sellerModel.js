@@ -35,7 +35,7 @@ const sellerSchema = new Schema({
         default : ''
     },
     shopInfo: {
-        type: object,
+        type: Object,
         default : {}
     },
 })
