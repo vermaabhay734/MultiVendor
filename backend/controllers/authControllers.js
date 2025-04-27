@@ -55,7 +55,7 @@ class authControllers{
               await sellerCustomerModel.create({
                     myId: seller.id
               })
-
+            // for new token generation
               const token = await createToken({ id : seller.id, role: seller.role })
               res.cookie('accessToken',token, {
                expires : new Date(Date.now() + 7*24*60*60*1000 )
