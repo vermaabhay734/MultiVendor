@@ -19,39 +19,41 @@ export const categoryAdd = createAsyncThunk(
     }
 )
 
-
-
+  
+ 
 export const categoryReducer = createSlice({
     name: 'category',
     initialState:{
         successMessage :  '',
         errorMessage : '',
         loader: false,
-        categorys : []
+        categorys : [] 
     },
     reducers : {
+
         messageClear : (state,_) => {
             state.errorMessage = ""
         }
     },
     extraReducers: (builder) => {
         builder
-        // For Admin
-        // .addCase(admin_login.pending, (state, { payload }) => {
-        //     state.loader = true;
-        // })
-        // .addCase(admin_login.rejected, (state, { payload }) => {
-        //     state.loader = false;
-        //     state.errorMessage = payload.error 
-        // })
+        .addCase(categoryAdd.pending, (state, { payload }) => {
+            state.loader = true;
+        })
+        .addCase(categoryAdd.rejected, (state, { payload }) => {
+            state.loader = false;
+            state.errorMessage = payload.error
+        }) 
         // .addCase(admin_login.fulfilled, (state, { payload }) => {
         //     state.loader = false;
         //     state.successMessage = payload.message
         //     state.token = payload.token
         //     state.role = returnRole(payload.token)
         // })
-    }
-})
+ 
 
+    }
+
+})
 export const {messageClear} = categoryReducer.actions
 export default categoryReducer.reducer

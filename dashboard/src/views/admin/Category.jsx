@@ -7,8 +7,13 @@ import { FaImage } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
+import { categoryAdd } from '../../store/Reducers/categoryReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Category = () => {
+
+    const dispatch = useDispatch()
+    const {loader} = useSelector(state=> state.category)
 
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
@@ -36,11 +41,10 @@ const Category = () => {
 
     const add_category = (e) => {
         e.preventDefault()
-        console.log(state)
+        dispatch(categoryAdd(state))
+        // console.log(state)
     }
 
-
-    const loader = false
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
