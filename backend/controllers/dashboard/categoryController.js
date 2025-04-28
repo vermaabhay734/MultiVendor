@@ -1,5 +1,7 @@
 const formidable = require("formidable")
 const { responseReturn } = require("../../utiles/response")
+const cloudinary = require('cloudinary').v2
+const categoryModel = require('../../models/categoryModel')
 
 class categoryController{
 
@@ -14,6 +16,29 @@ class categoryController{
                 name = name.trim()
                 // if user add space in name, then - will be added automatically
                 const slug = name.split(' ').join('-')
+
+                cloudinary.config({
+                    cloud_name: process.env.cloud_name,
+                    api_key: process.env.api_key,
+                    api_secret: process.env.api_secret,
+                    secure: true
+                })
+
+                try {
+                    const result = await cloudinary.uploader.upload(image.filepath, { folder: 'categorys'})
+                    if (result) {
+                        const category = await categoryModel.create({
+                            name,
+                            slug,
+                            image: result.url
+                        })
+                        responseReturn(res, 201,{ category,message : 'Category Added Successfully'})
+                    } else {
+                        responseReturn(res, 404,{ error : 'Image Upload Failed'})
+                    }
+                } catch (error) {
+                    responseReturn(res, 500,{ error : 'Internal Server Error'})
+                }
             }
              
         })
