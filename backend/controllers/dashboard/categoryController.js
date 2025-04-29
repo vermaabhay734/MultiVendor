@@ -45,7 +45,7 @@ class categoryController{
     }
 
     get_category = async (req, res) => {
-        console.log('this is working')
+        const {page,searchValue, parpage} = req.query
     }
 
 }
