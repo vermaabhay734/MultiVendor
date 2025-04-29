@@ -5,6 +5,7 @@ const categoryModel = require('../../models/categoryModel')
 
 class categoryController{
 
+    // For Adding New category
     add_category = async (req, res) => {
         const form = formidable()
         form.parse(req, async(err,fields,files)=>{
@@ -43,10 +44,36 @@ class categoryController{
              
         })
     }
+    // End Method
 
+
+    // Reflect new category dynamically.
     get_category = async (req, res) => {
-        const {page,searchValue, parpage} = req.query
+       const {page,searchValue, parPage} = req.query
+       const skipPage = parseInt(parPage) * (parseInt(page) - 1)
+
+       try {
+        if (searchValue) {
+            const categorys = await categoryModel.find({
+                $text: { $search: searchValue }
+            }).skip(skipPage).limit(parPage).sort({ createdAt: -1})
+            const totalCategory = await categoryModel.find({
+                $text: { $search: searchValue }
+            }).countDocuments()
+            responseReturn(res, 200,{categorys,totalCategory})
+        }
+
+        else {
+            const categorys = await categoryModel.find({ }).skip(skipPage).limit(parPage).sort({ createdAt: -1})
+            const totalCategory = await categoryModel.find({ }).countDocuments()
+            responseReturn(res, 200,{categorys,totalCategory})
+        }
+
+       } catch (error) {
+        
+       }
     }
+    // End Method
 
 }
  
