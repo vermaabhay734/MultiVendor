@@ -52,6 +52,7 @@ const productSchema = new Schema({
      
 }, {timestamps: true})
 
+// Search Priority.
 productSchema.index({
     name: 'text',
     category: 'text',
