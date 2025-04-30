@@ -4,12 +4,16 @@ import { IoMdImages } from "react-icons/io";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { get_category } from '../../store/Reducers/categoryReducer';
-import { add_product } from '../../store/Reducers/productReducer';
+import { add_product, messageClear } from '../../store/Reducers/productReducer';
+import { PropagateLoader } from 'react-spinners';
+import { overrideStyle } from '../../utils/utils';
+import toast from 'react-hot-toast';
 
 const AddProduct = () => {
 
     const dispatch = useDispatch()
     const { categorys } = useSelector(state => state.category)
+    const { loader,successMessage,errorMessage } = useSelector(state => state.product)
 
     useEffect(() => {
         dispatch(get_category({
@@ -73,6 +77,33 @@ const AddProduct = () => {
     }
     // console.log(images)
     // console.log(imageShow)
+
+
+    useEffect(() => {
+
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear()) 
+            setState({
+                name: "",
+                description: '',
+                discount: '',
+                price: "",
+                brand: "",
+                stock: ""
+            }) 
+            setImageShow([])
+            setImages([])
+            setCategory('')
+
+        }
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+        
+    },[successMessage,errorMessage])
+
 
     // Image Change Method
     const changeImage = (img, index) => {
@@ -215,7 +246,11 @@ const AddProduct = () => {
                         
                         {/* Button Section */}
                         <div className='flex'>
-                            <button className='bg-red-500  hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2'>Add Product</button>
+                            <button disabled={loader ? true : false}  className='bg-red-500 w-[280px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                            {
+                            loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Add Product'
+                            } 
+                            </button>
                         </div>
 
                     </form>
