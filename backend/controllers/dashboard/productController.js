@@ -53,6 +53,7 @@ class productController{
     // End Method
 
 
+    // For All Products list
     products_get = async (req, res) => {
         const {page,searchValue, parPage} = req.query 
         const {id} = req;
@@ -78,9 +79,23 @@ class productController{
             }
             
         } catch (error) {
+            console.log(error.message)
             
         } 
 
+    }
+    // End Method 
+
+
+    // For single product
+    product_get = async (req, res) => {
+        const { productId } = req.params;
+        try {
+            const product = await productModel.findById(productId)
+            responseReturn(res, 200,{product})
+        } catch (error) {
+            console.log(error.message)
+        }
     }
     // End Method 
 
