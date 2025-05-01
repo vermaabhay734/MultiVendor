@@ -55,6 +55,25 @@ export const get_product = createAsyncThunk(
     }
 )
 // End Method 
+
+
+// To Update single product
+export const update_product = createAsyncThunk(
+    'product/update_product',
+    async( product ,{rejectWithValue, fulfillWithValue}) => {
+        
+        try {
+             
+            const {data} = await api.post(`/product-update`, product,{withCredentials: true}) 
+            console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            // console.log(error.response.data)
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+// End Method
  
  
 export const productReducer = createSlice({
@@ -86,7 +105,7 @@ export const productReducer = createSlice({
             state.loader = false;
             state.successMessage = payload.message
         })
-        
+
         .addCase(get_products.fulfilled, (state, { payload }) => {
             state.totalProduct = payload.totalProduct;
             state.products = payload.products;
