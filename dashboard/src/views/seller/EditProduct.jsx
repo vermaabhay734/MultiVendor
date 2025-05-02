@@ -49,7 +49,7 @@ const EditProduct = () => {
 
     const [cateShow, setCateShow] = useState(false)
     const [category, setCategory] = useState('')
-    const [allCategory, setAllCategory] = useState(categorys)
+    const [allCategory, setAllCategory] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
     // Category Search 
@@ -93,20 +93,17 @@ const EditProduct = () => {
 
 
     useEffect(() => {
+        if (categorys.length > 0) {
+            setAllCategory(categorys)
+        }
+    } )
+
+
+    useEffect(() => {
 
         if (successMessage) {
             toast.success(successMessage)
-            dispatch(messageClear()) 
-            setState({
-                name: "",
-                description: '',
-                discount: '',
-                price: "",
-                brand: "",
-                stock: ""
-            })  
-            setCategory('')
-
+            dispatch(messageClear())
         }
         if (errorMessage) {
             toast.error(errorMessage)
@@ -167,7 +164,7 @@ const EditProduct = () => {
                                     <div className='pt-14'></div>
                                     <div className='flex justify-start items-start flex-col h-[200px] overflow-x-scrool'>
                                         {
-                                            allCategory.map((c,i) => <span className={`px-4 py-2 hover:bg-indigo-500 hover:text-white hover:shadow-lg w-full cursor-pointer ${category === c.name && 'bg-indigo-500'}`} onClick={()=> {
+                                            allCategory.length > 0 && allCategory.map((c,i) => <span className={`px-4 py-2 hover:bg-indigo-500 hover:text-white hover:shadow-lg w-full cursor-pointer ${category === c.name && 'bg-indigo-500'}`} onClick={()=> {
                                                 setCateShow(false)
                                                 setCategory(c.name)
                                                 setSearchValue('')
@@ -208,7 +205,7 @@ const EditProduct = () => {
                         {/* Image section */}
                         <div className='grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 sm:grid-cols-2 sm:gap-4 md:gap-4 gap-3 w-full text-[#d0d2d6] mb-4'>
                             {
-                                imageShow.map((img, i) => <div>
+                                (imageShow && imageShow.length > 0) && imageShow.map((img, i) => <div>
                                     <label htmlFor={i}>
                                         <img src={img} alt="" />
                                     </label>
