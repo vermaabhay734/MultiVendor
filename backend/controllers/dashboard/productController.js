@@ -115,7 +115,19 @@ class productController{
             responseReturn(res, 500,{ error : error.message })
         } 
     }
-  // End Method 
+    // End Method
+
+
+    // For single product image update
+    product_image_update = async(req,res) => {
+        const form = formidable({ multiples: true })
+    
+        form.parse(req, (err, field, files) => {
+            const {oldImage,productId} = field;
+            const { newImage } = files
+        })
+    }
+    // End Method 
 
 
 }
