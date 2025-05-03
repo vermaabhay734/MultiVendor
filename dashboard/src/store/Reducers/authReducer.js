@@ -200,6 +200,16 @@ export const authReducer = createSlice({
             state.userInfo = payload.userInfo
             state.successMessage = payload.message
         })
+
+        // Seller Profile Information Add
+        .addCase(profile_info_add.pending, (state, { payload }) => {
+            state.loader = true; 
+        })
+        .addCase(profile_info_add.fulfilled, (state, { payload }) => {
+            state.loader = false;
+            state.userInfo = payload.userInfo
+            state.successMessage = payload.message
+        })
         
     }
 })
