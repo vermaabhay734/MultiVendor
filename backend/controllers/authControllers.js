@@ -151,6 +151,9 @@ class authControllers{
             }
         })
     }
+    // End Method
+
+    
 
 
     
