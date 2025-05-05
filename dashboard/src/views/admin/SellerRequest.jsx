@@ -39,34 +39,35 @@ const SellerRequest = () => {
                     <tr>
                         <th scope='col' className='py-3 px-4'>No</th>
                         <th scope='col' className='py-3 px-4'>Name</th>
-                        <th scope='col' className='py-3 px-4'>Email</th> 
-                        <th scope='col' className='py-3 px-4'>Payment Status</th> 
-                        <th scope='col' className='py-3 px-4'>Status</th> 
-                        <th scope='col' className='py-3 px-4'>Action</th> 
+                        <th scope='col' className='py-3 px-4'>Email</th>
+                        <th scope='col' className='py-3 px-4'>Payment Status</th>
+                        <th scope='col' className='py-3 px-4'>Status</th>
+                        <th scope='col' className='py-3 px-4'>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                         {
-                            [1,2,3,4,5].map((d, i) => <tr className='border-b border-slate-700' key={i}>
-                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>{d}</td>
-                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>Abhay Verma </td>
-                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>abhay@gmail.com</td>
+                            sellers.map((d, i) => <tr className='border-b border-slate-700' key={i}>
+                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>{i+1}</td> 
+                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>{d.name} </td>
+                            <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>{d.email} </td>
                             <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
-                                <span>Inactive</span> </td>
+                                <span>{d.payment}</span> </td>
+
                             <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
-                                <span>Pending</span> </td>
-                            
-                            
+                            <span>{d.status}</span> </td>
+
                             <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
-                            <div className='flex justify-start items-center gap-4'>
-                            <Link to='/admin/dashboard/seller/details/2' className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye /> </Link> 
-                            </div>
+                                <div className='flex justify-start items-center gap-4'>
+                                <Link to={`/admin/dashboard/seller/details/${d._id}`} className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye /> </Link> 
+                                </div>
                             </td>
-                            </tr> )
+                        </tr> )
                         }
                     </tbody>
                 </table>
                 </div>
+
                 <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
                     <Pagination 
                         pageNumber = {currentPage}
