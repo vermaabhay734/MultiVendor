@@ -35,7 +35,25 @@ export const get_seller = createAsyncThunk(
         }
     }
 )
+// End Method
 
+
+// For seller status update change.
+export const seller_status_update = createAsyncThunk(
+    'seller/seller_status_update',
+    async(info ,{rejectWithValue, fulfillWithValue}) => {
+        
+        try {
+             
+            const {data} = await api.post(`/seller-status-update`,info,{withCredentials: true}) 
+             console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            // console.log(error.response.data)
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
 // End Method
 
  
@@ -63,8 +81,14 @@ export const sellerReducer = createSlice({
             state.sellers = payload.sellers;
             state.totalSeller = payload.totalSeller;
         })
+
         .addCase(get_seller.fulfilled, (state, { payload }) => {
             state.seller = payload.seller; 
+        })
+
+        .addCase(seller_status_update.fulfilled, (state, { payload }) => {
+            state.seller = payload.seller; 
+            state.successMessage = payload.message; 
         })
     }
 
