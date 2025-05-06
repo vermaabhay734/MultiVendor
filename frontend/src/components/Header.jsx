@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdEmail } from "react-icons/md";
 import { IoMdPhonePortrait } from "react-icons/io";
-import { FaFacebookF, FaLock, FaUser } from "react-icons/fa";
+import { FaFacebookF, FaList, FaLock, FaUser } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
@@ -11,14 +11,17 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 
+    const [showShidebar, setShowShidebar] = useState(true);
     const user = true
 
 
     return (
         <div className='w-full bg-white'>
+            {/* Small Header */}
             <div className='header-top bg-[#caddff] md-lg:hidden'>
                 <div className='w-[85%] lg:w-[90%] mx-auto'>
                     <div className='flex w-full justify-between items-center h-[50px] text-slate-500'>
+                        {/* Email and Mobile Number */}
                         <ul className='flex justify-start items-center gap-8 font-semibold text-black'>
                             <li className='flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]'>
                                 <span><MdEmail /></span>
@@ -33,6 +36,7 @@ const Header = () => {
 
                         <div>
                             <div className='flex justify-center items-center gap-10'>
+                                {/* Social Media Icons */}
                                 <div className='flex justify-center items-center gap-4 text-black'>
                                     <a href="#"><FaFacebookF /></a>
                                     <a href="#"><FaTwitter /> </a>
@@ -40,6 +44,7 @@ const Header = () => {
                                     <a href="#"><FaGithub /> </a> 
                                 </div>
 
+                                {/* Language Selection */}
                                 <div className='flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]'>
                                     <img src="http://localhost:3000/images/language.png" alt="" />
                                     <span><IoMdArrowDropdown /></span>
@@ -48,6 +53,7 @@ const Header = () => {
                                         <li>English</li>
                                     </ul>
                                 </div>
+                                {/* Name and Login Icon */}
                                 {
                                 user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                                     <span> <FaUser/> </span>
@@ -60,10 +66,25 @@ const Header = () => {
 
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+
+            {/* Broad Header */}
+            <div className='w-white'>
+                <div className='w-[85%] lg:w-[90%] mx-auto'>
+                    {/* Logo Easy Shop */}
+                    <div className='h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap'>
+                        <Link to='/'>
+                            <img src="http://localhost:3000/images/logo.png" alt="" />
+                        </Link>
+                        <div className='justify-center items-center w-[30px] h-[30px] bg-white text-slate-600 border border-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden' onClick={() => setShowShidebar(false)}>
+                            <span> <FaList/> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     );
 };
