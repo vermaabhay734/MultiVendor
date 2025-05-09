@@ -21,6 +21,19 @@ const Header = () => {
     const [categoryShow, setCategoryShow] = useState(true);
     const user = true
     const wishlist_count = 3
+    const categorys = [
+        'Mobiles',
+        'Laptops',
+        'Speakers',
+        'Top wear',
+        'Footwear',
+        'Watches',
+        'Home Decor',
+        'Smart Watches',
+    ]
+
+    const [searchValue, setSearchValue] = useState('')
+    const [category, setCategory] = useState('')
 
 
     return (
@@ -151,7 +164,7 @@ const Header = () => {
             
             {/* For Hidden block header */}
             <div className='hidden md-lg:block'>
-                <div onClick={()=> setShowShidebar(true)} className={`flxed duration-200 transition-all ${showShidebar ? 'invisible' : 'visible'} hidden md-lg:block w-screen h-screen bg-[rgba(0,0,0,0.5)] top-0 left-0 z-20 `}>  
+                <div onClick={()=> setShowShidebar(true)} className={`fixed duration-200 transition-all ${showShidebar ? 'invisible' : 'visible'} hidden md-lg:block w-screen h-screen bg-[rgba(0,0,0,0.5)] top-0 left-0 z-20 `}>  
                 </div>
 
                 <div className={`w-[300px] z-[9999] transition-all duration-200 fixed ${showShidebar ? '-left-[300px]' : 'left-0 top-0'} overflow-y-auto bg-white h-screen py-6 px-8 `}>
@@ -235,11 +248,46 @@ const Header = () => {
                                 <span className='pt-1'><IoIosArrowDown /></span>
                             </div>
 
+                            {/* Category UL */}
                             <div className={`${categoryShow ? 'h-0' : 'h-[400px]'} overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#dbf3ed] w-full border-x`}>
-
+                            <ul className='py-2 text-slate-600 font-medium'>
+                                {
+                                    categorys.map((c,i) => {
+                                        return (
+                                        <li key={i} className='flex justify-start items-center gap-2 px-[24px] py-[6px]'>
+                                            <Link className='text-sm block'>{c}</Link>
+                                        </li>
+                                        )
+                                    })
+                                }
+                            </ul>
                             </div>
                         </div>
                     </div>
+
+                    {/* Select Category and Search area */}
+                    <div className='w-9/12 pl-8 md-lg:pl-0 md-lg:w-full'>
+                        <div className='flex flex-wrap w-full justify-between items-center md-lg:gap-6'>
+                            <div className='w-8/12 md-lg:w-full'>
+                                <div className='flex border h-[50px] items-center relative gap-6'>
+                                    <div className='relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] md:hidden'>
+                                        <select onChange={(e) => setCategory(e.target.value)} className='w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none' name="" id="">
+                                            <option value="">Select Category</option>
+                                            {
+                                                categorys.map((c, i) => <option value={c}>
+                                                    {c}
+                                                </option> )
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <input className='w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full' onChange={(e)=> setSearchValue(e.target.value)} type="text" name='' id='' placeholder='What do you need' />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
