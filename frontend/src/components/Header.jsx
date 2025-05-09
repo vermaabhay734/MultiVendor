@@ -10,6 +10,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaHeart } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 const Header = () => {
@@ -17,6 +18,7 @@ const Header = () => {
     const {pathname} = useLocation()
 
     const [showShidebar, setShowShidebar] = useState(true);
+    const [categoryShow, setCategoryShow] = useState(true);
     const user = true
     const wishlist_count = 3
 
@@ -146,7 +148,8 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-
+            
+            {/* For Hidden block header */}
             <div className='hidden md-lg:block'>
                 <div onClick={()=> setShowShidebar(true)} className={`flxed duration-200 transition-all ${showShidebar ? 'invisible' : 'visible'} hidden md-lg:block w-screen h-screen bg-[rgba(0,0,0,0.5)] top-0 left-0 z-20 `}>  
                 </div>
@@ -168,7 +171,7 @@ const Header = () => {
                             {
                                 user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                                     <span> <FaUser/> </span>
-                                    <span>Kazi Ariyan </span>
+                                    <span>Abhay Verma </span>
                                     </Link> : <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
                                     <span> <FaLock /> </span>
                                     <span>Login </span>
@@ -218,7 +221,27 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            
+            {/* All Category Section Header */}
+            <div className='w-[85%] lg:w-[90%] mx-auto'>
+                <div className='flex w-full flex-wrap md-lg:gap-8'>
+                    <div className='w-3/12 md-lg:w-full'>
+                        <div className='bg-white relative'>
+                            <div onClick={() => setCategoryShow(!categoryShow) } className='h-[50px] bg-[#059473] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer'>
+                                <div className='flex justify-center items-center gap-3'>
+                                    <span><FaList/></span>
+                                    <span>All Category </span>
+                                </div>
+                                <span className='pt-1'><IoIosArrowDown /></span>
+                            </div>
 
+                            <div className={`${categoryShow ? 'h-0' : 'h-[400px]'} overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#dbf3ed] w-full border-x`}>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
