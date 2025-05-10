@@ -282,6 +282,21 @@ const Header = () => {
                                     </div>
 
                                     <input className='w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full' onChange={(e)=> setSearchValue(e.target.value)} type="text" name='' id='' placeholder='What do you need' />
+                                    <button className='bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white'>Search</button>
+
+                                </div>
+                            </div>
+
+                            <div className='w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0'>
+                                <div className='w-full flex justify-end md-lg:justify-start gap-3 items-center'>
+                                    <div className='w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center '>
+                                        <span><FaPhoneAlt /></span>
+                                    </div>
+
+                                    <div className='flex justify-end flex-col gap-1'>
+                                        <h2 className='text-md font-medium text-slate-700'>+1343-43233455</h2>
+                                        <span className='text-sm'>Support 24/7</span> 
+                                    </div>
 
                                 </div>
                             </div>
