@@ -334,14 +334,29 @@ const Details = () => {
                                         discount !== 0 && <div className='flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2'>{discount}%
                                         </div>
                                         }
+                                        </div>
+                                        {/* Product name, price and rating */}
+                                        <div className='p-4 flex flex-col gap-1'>
+                                            <h2 className='text-slate-600 text-lg font-bold'>Product Name </h2> 
+                                            <div className='flex justify-start items-center gap-3'>
+                                                <h2 className='text-lg font-bold text-slate-600'>Rs.434</h2>
+                                                <div className='flex'>
+                                                    <Rating ratings={4.5}  />
+                                                </div>
                                             </div>
+                                        </div>
                                         </Link>
-
                                     </SwiperSlide>
                                 )
                             })
                         }
                         </Swiper>
+                    </div>
+
+                    {/* Slider */}
+                    <div className='w-full flex justify-center items-center py-8'>
+                        <div className='custom_bullet justify-center gap-3 !w-auto'> 
+                        </div>
                     </div>
                 </div>
             </section>
