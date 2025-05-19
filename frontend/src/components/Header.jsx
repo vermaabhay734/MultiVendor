@@ -13,7 +13,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 
 
-const Header = () => {
+const Header = ({categorys}) => {
 
     const {pathname} = useLocation()
 
@@ -21,16 +21,6 @@ const Header = () => {
     const [categoryShow, setCategoryShow] = useState(true);
     const user = true
     const wishlist_count = 3
-    const categorys = [
-        'Mobiles',
-        'Laptops',
-        'Speakers',
-        'Top wear',
-        'Footwear',
-        'Watches',
-        'Home Decor',
-        'Smart Watches',
-    ]
 
     const [searchValue, setSearchValue] = useState('')
     const [category, setCategory] = useState('')
@@ -255,7 +245,8 @@ const Header = () => {
                                     categorys.map((c,i) => {
                                         return (
                                         <li key={i} className='flex justify-start items-center gap-2 px-[24px] py-[6px]'>
-                                            <Link className='text-sm block'>{c}</Link>
+                                            <img src={c.image} className='w-[30px] h-[30px] rounded-full overflow-hidden' alt="" />
+                                            <Link className='text-sm block'>{c.name}</Link>
                                         </li>
                                         )
                                     })
@@ -274,8 +265,8 @@ const Header = () => {
                                         <select onChange={(e) => setCategory(e.target.value)} className='w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none' name="" id="">
                                             <option value="">Select Category</option>
                                             {
-                                                categorys.map((c, i) => <option value={c}>
-                                                    {c}
+                                                categorys.map((c, i) => <option key={i} value={c}>
+                                                    {c.name}
                                                 </option> )
                                             }
                                         </select>
