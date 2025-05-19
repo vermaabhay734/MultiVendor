@@ -98,7 +98,14 @@ class homeControllers{
             console.log(error.message)
         }
     }
-   // end method
+    // end method
+
+    // product Filter related method
+    query_products = async (req, res) => {
+        console.log(req.query)
+        }
+    // end method 
+
 
 }
 
