@@ -17,15 +17,22 @@ import { price_range_product } from '../store/reducers/homeReducer';
 const Shops = () => {
 
     const dispatch = useDispatch()
-    const {categorys} = useSelector(state => state.home)
+    const {products,categorys,priceRange,latest_product} = useSelector(state => state.home)
 
     useEffect(() => { 
         dispatch(price_range_product())
     },[])
 
+    useEffect(() => { 
+        setState({
+            values: [priceRange.low, priceRange.high]
+        })
+    },[priceRange])
+
+
     const [filter, setFilter] = useState(true) 
 
-    const [state, setState] = useState({values: [50, 1500]})
+    const [state, setState] = useState({values: [priceRange.low, priceRange.high]})
     const [rating, setRating] = useState('')
     const [styles, setStyles] = useState('grid')
 
@@ -82,8 +89,8 @@ const Shops = () => {
                                 <h2 className='text-3xl font-bold mb-3 text-slate-600'>Price</h2>
                                 <Range
                                     step={5}
-                                    min={50}
-                                    max={1500}
+                                    min={priceRange.low}
+                                    max={priceRange.high}
                                     values={(state.values)}
                                     onChange={(values) => setState({values})}
                                     renderTrack={({props,children}) => (
@@ -155,7 +162,7 @@ const Shops = () => {
                             
                             {/* Latest Product Section */}
                             <div className='py-5 flex flex-col gap-4 md:hidden'>
-                                {/* <Products title='Latest Product' /> */}
+                                <Products title='Latest Product'  products={latest_product} />
                             </div>
                         </div>
 
