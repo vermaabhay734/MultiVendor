@@ -2,9 +2,12 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import { Link } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css'
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const Categorys = ({categorys}) => {
+const Categorys = () => {
+
+    const {categorys} = useSelector(state => state.home)
 
 
     // Responsive Breakpoint for other devices.
