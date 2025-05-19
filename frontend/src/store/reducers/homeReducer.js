@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
 
-
+// Get category dynamically
 export const get_category = createAsyncThunk(
     'product/get_category',
     async(_, { fulfillWithValue }) => {
@@ -14,7 +14,23 @@ export const get_category = createAsyncThunk(
         }
     }
 )
-// End Method 
+// End Method
+
+
+// Get products from db dynamically
+export const get_products = createAsyncThunk(
+    'product/get_products',
+    async(_, { fulfillWithValue }) => {
+        try {
+            const {data} = await api.get('/home/get-products')
+             console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.respone)
+        }
+    }
+)
+// End Method
 
 
 export const homeReducer = createSlice({
