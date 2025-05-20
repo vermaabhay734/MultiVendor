@@ -116,6 +116,7 @@ class homeControllers{
             const productQuery = new queryProducts(products, req.query)
             .categoryQuery()
             .ratingQuery()
+            .searchQuery()
             .priceQuery()
             .sortByPrice();
 

@@ -16,6 +16,11 @@ class queryProducts {
         return this
     }
 
+    searchQuery = () => {
+        this.products = this.query.searchValue ? this.products.filter(p => p.name.toUpperCase().indexOf(this.query.searchValue.toUpperCase()) > -1  ) : this.products
+        return this
+    }
+
     priceQuery = () => {
         const low = this.query.lowPrice ? parseFloat(this.query.lowPrice) : 0;
         const high = this.query.highPrice ? parseFloat(this.query.highPrice) : Infinity;
