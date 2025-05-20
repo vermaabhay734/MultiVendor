@@ -17,10 +17,13 @@ class queryProducts {
     }
 
     priceQuery = () => {
-        this.products = this.products.filter(p => p.price >= this.query.lowPrice & p.price <= this.query.highPrice )
-        return this
+        const low = this.query.lowPrice ? parseFloat(this.query.lowPrice) : 0;
+        const high = this.query.highPrice ? parseFloat(this.query.highPrice) : Infinity;
+        
+        this.products = this.products.filter(p => p.price >= low && p.price <= high);
+        return this;
     }
-    
+ 
     sortByPrice = () => {
         if (this.query.sortPrice) {
             if (this.query.sortPrice === 'low-to-high') {
@@ -33,28 +36,36 @@ class queryProducts {
     }
 
     skip = () => {
-        let {pageNumber} = this.query
-        const skipPage = (parseInt(pageNumber) - 1) * this.query.parPage
-        let skipProduct = []
+        let pageNumber = this.query.pageNumber ? parseInt(this.query.pageNumber) : 1;
+        let parPage = this.query.parPage ? parseInt(this.query.parPage) : 12;
+        const skipPage = (pageNumber - 1) * parPage;
+        let skipProduct = [];
 
         for (let i = skipPage; i < this.products.length; i++) {
             skipProduct.push(this.products[i]) 
         }
-        this.products = skipProduct
-        return this
+
+        this.products = skipProduct;
+        // console.log('⏩ Skip step. Skipped:', skipPage, 'Remaining after skip:', this.products.length);
+        return this;
     }
 
+
     limit = () => {
-        let temp = []
-        if (this.products.length > this.query.parPage) {
-            for (let i = 0; i < this.query.parPage; i++) {
+        let parPage = this.query.parPage ? parseInt(this.query.parPage) : 12;
+        let temp = [];
+
+        if (this.products.length > parPage) {
+            for (let i = 0; i < parPage; i++) {
                 temp.push(this.products[i]) 
             } 
-        }else {
+        } else {
             temp = this.products
         }
-        this.products = temp 
-        return this
+
+        this.products = temp;
+        // console.log('🔒 Limit step. Products before limit:', this.products.length);
+        return this;
     }
 
     getProducts = () => {

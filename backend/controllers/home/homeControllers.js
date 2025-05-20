@@ -82,6 +82,7 @@ class homeControllers{
             const products = await productModel.find({}).limit(9).sort({
                 createdAt: -1 // 1 for asc -1 is for Desc
             })
+            // console.log('📦 Total products fetched from DB:', products.length);
             const latest_product = this.formateProduct(products);
             const getForPrice = await productModel.find({}).sort({
                 'price': 1
@@ -105,14 +106,26 @@ class homeControllers{
     query_products = async (req, res) => {
         const parPage = 12
         req.query.parPage = parPage
+        req.query.pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : 1;
 
         try {
             const products = await productModel.find({}).sort({
                 createdAt: -1
             })
-            const totalProduct = new queryProducts(products, req.query).categoryQuery().ratingQuery().priceQuery().sortByPrice().countProducts();
 
-            const result = new queryProducts(products, req.query).categoryQuery().ratingQuery().priceQuery().sortByPrice().skip().limit().getProducts();
+            const productQuery = new queryProducts(products, req.query)
+            .categoryQuery()
+            .ratingQuery()
+            .priceQuery()
+            .sortByPrice();
+
+            const totalProduct = productQuery.countProducts();
+
+            const result = productQuery
+            .skip()
+            .limit()
+            .getProducts();
+
 
             responseReturn(res, 200, {
                 products: result,
