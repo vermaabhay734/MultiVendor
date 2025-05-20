@@ -17,7 +17,7 @@ import { price_range_product, query_products } from '../store/reducers/homeReduc
 const Shops = () => {
 
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,latest_product} = useSelector(state => state.home)
+    const {products,categorys,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
 
     useEffect(() => { 
         dispatch(price_range_product())
@@ -36,7 +36,6 @@ const Shops = () => {
     const [rating, setRating] = useState('')
     const [styles, setStyles] = useState('grid')
 
-    const [parPage, setParPage] = useState(1)
     const [pageNumber, setPageNumber] = useState(1)
 
     const [sortPrice, setSortPrice] = useState('')
@@ -218,12 +217,14 @@ const Shops = () => {
 
                                 {/* Shop Products */}
                                 <div className='pb-8'>
-                                    <ShopProducts styles={styles} />  
+                                    <ShopProducts products={products} styles={styles} />  
                                 </div>
 
                                 {/* Pagination */}
                                 <div>
-                                    <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={10} parPage={parPage} showItem={Math.floor(10 / 3 )} />
+                                    {
+                                        totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+                                    }
                                 </div>
                             </div>
                         </div>
