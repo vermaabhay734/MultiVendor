@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6"; 
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { customer_login,messageClear } from '../store/reducers/authReducer';
+import toast from 'react-hot-toast';
+import { FadeLoader } from 'react-spinners';
 
 const Login = () => {
+
+    const {loader,errorMessage,successMessage } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
 
     const [state, setState] = useState({ 
         email: '',
@@ -21,12 +28,30 @@ const Login = () => {
  
     const login = (e) => {
         e.preventDefault()
-        console.log(state)
+        dispatch(customer_login(state))
+        // console.log(state)
     }
+
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())  
+        } 
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())  
+        } 
+    },[successMessage,errorMessage])
 
 
     return (
         <div>
+            {
+                loader && <div className='w-screen h-screen flex justify-center items-center fixed left-0 top-0 bg-[#38303033] z-[999]'>
+                    <FadeLoader/>
+                </div>
+            }
+
             <Header />
 
             {/* User Login */}
