@@ -49,6 +49,7 @@ export const authReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
+        // For Customer Registration
         .addCase(customer_register.pending, (state, { payload }) => {
             state.loader = true;
         })
@@ -57,6 +58,19 @@ export const authReducer = createSlice({
             state.loader = false;
         })
         .addCase(customer_register.fulfilled, (state, { payload }) => {
+            state.successMessage = payload.message;
+            state.loader = false;
+        })
+
+        // For Customer Login
+        .addCase(customer_login.pending, (state, { payload }) => {
+            state.loader = true;
+        })
+        .addCase(customer_login.rejected, (state, { payload }) => {
+            state.errorMessage = payload.error;
+            state.loader = false;
+        })
+        .addCase(customer_login.fulfilled, (state, { payload }) => {
             state.successMessage = payload.message;
             state.loader = false;
         })
