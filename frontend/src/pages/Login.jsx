@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6"; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { customer_login,messageClear } from '../store/reducers/authReducer';
 import toast from 'react-hot-toast';
@@ -11,7 +11,8 @@ import { FadeLoader } from 'react-spinners';
 
 const Login = () => {
 
-    const {loader,errorMessage,successMessage } = useSelector(state => state.auth)
+    const navigate = useNavigate()
+    const {loader,errorMessage,successMessage,userInfo } = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const [state, setState] = useState({ 
@@ -40,7 +41,10 @@ const Login = () => {
         if (errorMessage) {
             toast.error(errorMessage)
             dispatch(messageClear())  
-        } 
+        }
+        if (userInfo) {
+            navigate('/')
+        }
     },[successMessage,errorMessage])
 
 
