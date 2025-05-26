@@ -34,7 +34,7 @@ const Header = () => {
         navigate(`/products/search?category=${category}&&value=${searchValue}`)
     }
 
-    // Card count icon
+    // Card count icon, user click on card icon if user is login then redirect it to card page else login page.
     const redirect_card_page = () => {
         if (userInfo) {
             navigate('/card')

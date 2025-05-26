@@ -39,7 +39,7 @@ class cardController{
     }
     // End Method 
 
-
+    // card products are visible by seller wise and it will also check whether stock eists or not.
     get_card_products = async(req, res) => {
         const co = 5;
         const {userId } = req.params
